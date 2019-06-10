@@ -34,7 +34,7 @@ export default class ExerciseScreen extends Component<IProps> {
                 <ScrollView>
                     <Image style={{width: win.width, height: imageSize.height * ratio}}
                            source={{uri: exercise.imagePath}}/>
-                    <View style={{marginLeft: 15, marginRight: 15, marginTop: 15}}>
+                    <View style={styles.contentGroup}>
                         <Text style={{fontSize: 20, fontWeight: 'bold', color: '#606F7B'}}>{exercise.name}</Text>
                         <Text style={{color: '#4A4A4A'}}>{exercise.description}</Text>
 
@@ -99,5 +99,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#4299E1'
+    },
+    contentGroup: {
+        marginTop: 15,
+        marginLeft: 15,
+        marginRight: 15,
     }
 });

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {SafeAreaView} from 'react-navigation';
 import {Exercise} from "../../models/Exercise";
 import {GroupedActivityList} from "../../components/GroupedActivityList";
+import {exercises} from "../../mock/data";
 
 interface IProps {
     navigation: any
@@ -12,36 +13,22 @@ export default class ExercisesScreen extends Component<IProps> {
             {
                 id: 1,
                 name: 'Arms',
-                exercises: [
-                    new Exercise(1, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/105.jpg', '12-12-15', new Date(), [], []),
-                    new Exercise(2, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/104.jpg', '12-12-15', new Date(), [], []),
-                    new Exercise(4, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/104.jpg', '12-12-15', new Date(), [], []),
-                ]
+                exercises: exercises.slice(0, 2)
             },
             {
                 id: 2,
                 name: 'Legs',
-                exercises: [
-                    new Exercise(3, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/105.jpg', '12-12-15', new Date(), [], []),
-                    new Exercise(6, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/104.jpg', '12-12-15', new Date(), [], []),
-                ]
+                exercises:  exercises.slice(2, 5)
             },
             {
                 id: 3,
                 name: 'Bicep',
-                exercises: [
-                    new Exercise(5, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/105.jpg', '12-12-15', new Date(), [], []),
-                ]
+                exercises: exercises.slice(5, 7)
             },
             {
                 id: 4,
                 name: 'Core',
-                exercises: [
-                    new Exercise(7, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/105.jpg', '12-12-15', new Date(), [], []),
-                    new Exercise(8, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/104.jpg', '12-12-15', new Date(), [], []),
-                    new Exercise(9, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/105.jpg', '12-12-15', new Date(), [], []),
-                    new Exercise(10, 'Lower back', 'oef', 'https://s3-eu-west-1.amazonaws.com/training-plan.maartendev.me/assets/104.jpg', '12-12-15', new Date(), [], []),
-                ]
+                exercises: exercises.slice(7, 10)
             }
         ]
     };

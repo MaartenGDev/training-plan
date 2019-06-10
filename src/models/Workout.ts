@@ -1,5 +1,3 @@
-import {Workshop} from "./Workshop";
-
 export class Workout {
     id: number;
     sets: string;

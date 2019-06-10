@@ -5,16 +5,18 @@ export class Exercise {
     id: number;
     name: string;
     description: string;
+    category: string;
     imagePath: string;
     sets: string;
     lastPerformed: Date;
     workouts: Workout[] = [];
     usedInWorkshops: Workshop[] = [];
 
-    constructor(id: number,name: string, description: string, imagePath: string, sets: string, lastPerformed: Date, workouts: Workout[], usedInWorkshops: Workshop[]){
+    constructor(id: number,name: string, description: string, category: string, imagePath: string, sets: string, lastPerformed: Date, workouts: Workout[], usedInWorkshops: Workshop[]){
         this.id = id;
         this.name = name;
         this.description = description;
+        this.category = category;
         this.sets = sets;
         this.imagePath = imagePath;
         this.lastPerformed = lastPerformed;
