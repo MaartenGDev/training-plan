@@ -1,13 +1,13 @@
-import {Activity} from "./Activity";
+import {Workshop} from "./Workshop";
 
 export class Workout {
     id: number;
-    name: string;
-    activities: Activity[];
+    sets: string;
+    date: Date;
 
-    constructor(id: number, name: string, activities: Activity[]){
+    constructor(id: number,sets: string, date: Date){
         this.id = id;
-        this.name = name;
-        this.activities = activities;
+        this.sets = sets;
+        this.date = date;
     }
 }

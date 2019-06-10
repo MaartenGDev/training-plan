@@ -1,15 +1,9 @@
 import React from 'react'
 import {Component} from 'react'
 import {StyleSheet, Text} from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {SafeAreaView} from 'react-navigation'
 
 export default class HomeScreen extends Component {
-    static navigationOptions = {
-        drawerLabel: 'Home',
-        drawerIcon: ({tintColor}) => <Icon name="home" size={30} color={tintColor}/>,
-    };
-
     render() {
         return (
             <SafeAreaView style={styles.container}>
