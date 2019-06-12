@@ -12,7 +12,7 @@ export const Workout: FunctionComponent<IProps> = ({workout}) => {
             <View style={styles.item}>
                 <Text style={{fontWeight: 'bold'}}>Workout #{workout.id}!</Text>
                 <Text style={{color: '#9B9B9B'}}>Sets: {workout.sets}</Text>
-                <Text style={{color: '#9B9B9B'}}>Last Performed: {workout.date.toDateString()}</Text>
+                <Text style={{color: '#9B9B9B'}}>Last Performed: {new Date().toDateString()}</Text>
             </View>
         </TouchableHighlight>
     );

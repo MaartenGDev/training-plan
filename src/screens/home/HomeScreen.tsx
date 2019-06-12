@@ -6,7 +6,11 @@ import {Workout} from "../../components/Workout";
 import {Exercise} from "../../components/Exercise";
 import {exercises, workouts} from '../../mock/data'
 
-export default class HomeScreen extends Component {
+interface IProps {
+    navigation: any
+}
+
+export default class HomeScreen extends Component<IProps> {
     state = {
         workouts: workouts.slice(0, 3),
         upcomingExercises: exercises.slice(0, 4)
@@ -14,6 +18,8 @@ export default class HomeScreen extends Component {
 
     render() {
         const {workouts, upcomingExercises} = this.state;
+        const {navigation} = this.props;
+
 
         return (
             <SafeAreaView style={styles.container}>
@@ -28,8 +34,9 @@ export default class HomeScreen extends Component {
                     <Text style={{...styles.heading, marginTop: 20}}>Upcoming lessons</Text>
                     <View style={styles.exercises}>
                         {upcomingExercises.map(exercise => <Exercise key={exercise.id} exercise={exercise}
-                                                                     onPress={x => {
-                                                                     }}/>)}
+                                                                     onPress={exercise1 =>
+                                                                         navigation.navigate('Exercise', {exercise})
+                                                                     }/>)}
                     </View>
                 </ScrollView>
             </SafeAreaView>

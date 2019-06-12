@@ -6,6 +6,19 @@ import ExercisesScreen from "./src/screens/exercises/ExercisesScreen";
 import ExerciseScreen from "./src/screens/exercises/ExerciseScreen";
 import TrainingSchedulesScreen from "./src/screens/training-schedules/TrainingSchedulesScreen";
 import {Sidebar} from "./src/screens/navigation/Sidebar";
+import { ApolloClient } from 'apollo-client';
+import { ApolloProvider } from 'react-apollo';
+import {createHttpLink} from "apollo-link-http";
+import {InMemoryCache} from "apollo-cache-inmemory";
+
+const link = createHttpLink({
+    uri: "https://training-plan-api.maartendev.me/graphql"
+});
+
+const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link,
+});
 
 const DrawerNavigator = createDrawerNavigator({
     Home: {
@@ -64,4 +77,13 @@ const StackNavigation = createStackNavigator({
     },
 });
 
-export default createAppContainer(StackNavigation);
+const NavContainer = createAppContainer(StackNavigation);
+
+const App = () => (
+    <ApolloProvider client={client}>
+        <NavContainer />
+    </ApolloProvider>
+);
+
+
+export default App;

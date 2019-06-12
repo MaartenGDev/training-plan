@@ -46,7 +46,7 @@ export default class ExerciseScreen extends Component<IProps> {
                                     style={{
                                         marginLeft: 2,
                                         color: '#4A4A4A'
-                                    }}>{exercise.lastPerformed.toDateString()}</Text>
+                                    }}>{new Date().toDateString()}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <Text style={{fontWeight: 'bold', color: '#4A4A4A'}}>Count: </Text>
@@ -56,7 +56,7 @@ export default class ExerciseScreen extends Component<IProps> {
 
                         <Text style={styles.heading}>Workshops</Text>
                         <View style={{flexDirection: 'row', marginTop: 4}}>
-                            {exercise.usedInWorkshops.map(workshop => <View
+                            {(exercise.usedInWorkshops || []).map(workshop => <View
                                 key={workshop.id}
                                 style={styles.tile}><Text style={{
                                 color: '#ffffff',
@@ -66,7 +66,7 @@ export default class ExerciseScreen extends Component<IProps> {
                         </View>
 
                         <Text style={styles.heading}>Workouts</Text>
-                        <View style={styles.workouts}>{exercise.workouts.map(workout => <Workout key={workout.id}
+                        <View style={styles.workouts}>{(exercise.workouts || []).map(workout => <Workout key={workout.id}
                                                                                                  workout={workout}/>)}</View>
                     </View>
                 </ScrollView>
