@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, SectionList, StyleSheet, Text, Image, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-navigation';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Exercise} from "../../models/Exercise";
 import {Dimensions} from 'react-native';
 import {Workout} from "../../components/Workout";

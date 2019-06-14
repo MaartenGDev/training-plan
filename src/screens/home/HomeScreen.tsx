@@ -4,41 +4,60 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native'
 import {SafeAreaView} from 'react-navigation'
 import {Workout} from "../../components/Workout";
 import {Exercise} from "../../components/Exercise";
-import {exercises, workouts} from '../../mock/data'
+import {Query} from "react-apollo";
+import {gql} from "apollo-boost";
 
 interface IProps {
     navigation: any
 }
 
 export default class HomeScreen extends Component<IProps> {
-    state = {
-        workouts: workouts.slice(0, 3),
-        upcomingExercises: exercises.slice(0, 4)
-    };
 
     render() {
-        const {workouts, upcomingExercises} = this.state;
+        const upcomingExercises = [];
         const {navigation} = this.props;
 
 
         return (
             <SafeAreaView style={styles.container}>
-                <ScrollView style={styles.contentGroup}>
-                    <Text style={styles.greeting}>Welcome back, Maarten!</Text>
+                <Query
+                    query={gql`
+                    {
+                    workouts {
+                        id
+                         exercises {
+                          sets
+                          description
+                          dateTime
+                        }
+                      }
+                     }
+                `}>
+                    {({loading, error, data}) => {
+                        if (loading) return <Text>Loading...</Text>;
+                        if (error) return <Text>Error :(</Text>;
 
-                    <Text style={styles.heading}>Latest workouts</Text>
-                    <View style={styles.workouts}>
-                        {workouts.map(workout => <Workout key={workout.id} workout={workout}/>)}
-                    </View>
+                        return (
+                            <ScrollView style={styles.contentGroup}>
 
-                    <Text style={{...styles.heading, marginTop: 20}}>Upcoming lessons</Text>
-                    <View style={styles.exercises}>
-                        {upcomingExercises.map(exercise => <Exercise key={exercise.id} exercise={exercise}
-                                                                     onPress={exercise1 =>
-                                                                         navigation.navigate('Exercise', {exercise})
-                                                                     }/>)}
-                    </View>
-                </ScrollView>
+                                <Text style={styles.greeting}>Welcome back, Maarten!</Text>
+
+                                <Text style={styles.heading}>Latest workouts</Text>
+                                <View style={styles.workouts}>
+                                    {data.workouts.map(workout => <Workout key={workout.id} workout={workout}/>)}
+                                </View>
+
+                                <Text style={{...styles.heading, marginTop: 20}}>Upcoming lessons</Text>
+                                <View style={styles.exercises}>
+                                    {upcomingExercises.map(exercise => <Exercise key={exercise.id} exercise={exercise}
+                                                                                 onPress={clickedExercise =>
+                                                                                     navigation.navigate('Exercise', {exercise: clickedExercise})
+                                                                                 }/>)}
+                                </View>
+                            </ScrollView>
+                        )
+                    }}
+                </Query>
             </SafeAreaView>
         )
     }

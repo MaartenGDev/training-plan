@@ -16,7 +16,7 @@ export const Exercise: FunctionComponent<IProps> = ({exercise, onPress}) => {
                     source={{uri: exercise.imagePath}}
                 />
                 <View style={styles.details}>
-                    <Text style={{fontWeight: 'bold'}}>{exercise.name}!</Text>
+                    <Text style={{fontWeight: 'bold'}}>{exercise.name}</Text>
                     <Text style={{color: '#9B9B9B'}}>Sets: {exercise.sets}</Text>
                     <Text style={{color: '#9B9B9B'}}>Last Performed: {new Date().toDateString()}</Text>
                 </View>

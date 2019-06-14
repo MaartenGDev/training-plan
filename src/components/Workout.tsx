@@ -7,12 +7,16 @@ interface IProps {
 }
 
 export const Workout: FunctionComponent<IProps> = ({workout}) => {
+    const exerciseDates = workout.exercises
+        .map(x => new Date(x.dateTime))
+        .sort((d1, d2) => d1.getTime() - d2.getTime());
+
     return (
         <TouchableHighlight>
             <View style={styles.item}>
                 <Text style={{fontWeight: 'bold'}}>Workout #{workout.id}!</Text>
-                <Text style={{color: '#9B9B9B'}}>Sets: {workout.sets}</Text>
-                <Text style={{color: '#9B9B9B'}}>Last Performed: {new Date().toDateString()}</Text>
+                <Text style={{color: '#9B9B9B'}}>{workout.exercises.length} Exercises</Text>
+                <Text style={{color: '#9B9B9B'}}>Date: {exerciseDates[0].toDateString()} - {exerciseDates[exerciseDates.length -1].toDateString()}</Text>
             </View>
         </TouchableHighlight>
     );
