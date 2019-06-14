@@ -4,15 +4,16 @@ import {Workout as WorkoutModel} from "../models/Workout";
 
 interface IProps {
     workout: WorkoutModel;
+    onPress: (workout: WorkoutModel) => void
 }
 
-export const Workout: FunctionComponent<IProps> = ({workout}) => {
+export const Workout: FunctionComponent<IProps> = ({workout, onPress}) => {
     const exerciseDates = workout.exercises
         .map(x => new Date(x.dateTime))
         .sort((d1, d2) => d1.getTime() - d2.getTime());
 
     return (
-        <TouchableHighlight>
+        <TouchableHighlight onPress={e => onPress(workout)}>
             <View style={styles.item}>
                 <Text style={{fontWeight: 'bold'}}>Workout #{workout.id}!</Text>
                 <Text style={{color: '#9B9B9B'}}>{workout.exercises.length} Exercises</Text>

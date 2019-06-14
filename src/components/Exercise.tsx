@@ -1,10 +1,10 @@
-import React, {FunctionComponent} from 'react';
+import React, {Component, FunctionComponent} from 'react';
 import {View, StyleSheet, Text, Image, TouchableHighlight} from 'react-native';
 import {Exercise as ExerciseModel} from "../models/Exercise";
 
 interface IProps {
     exercise: ExerciseModel;
-    onPress: (exercise: ExerciseModel) => void
+    onPress: (exercise: ExerciseModel) => any
 }
 
 export const Exercise: FunctionComponent<IProps> = ({exercise, onPress}) => {

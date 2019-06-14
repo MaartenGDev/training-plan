@@ -6,10 +6,10 @@ export class Workout {
     date: Date;
     exercises: WorkoutExercise[];
 
-    constructor(id: number,sets: string, date: Date, exercises: WorkoutExercise[]){
+    constructor(id: number,sets: string, exercises: WorkoutExercise[]){
         this.id = id;
         this.sets = sets;
-        this.date = date;
+        this.date = exercises[0].dateTime;
         this.exercises = exercises;
     }
 }

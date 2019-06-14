@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native'
 import {SafeAreaView} from 'react-navigation';
-import {Exercise} from "../../models/Exercise";
-import {GroupedActivityList} from "../../components/GroupedActivityList";
+import {Exercise as ExerciseModel} from "../../models/Exercise";
+import {GroupedList} from "../../components/GroupedList";
 import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
+import {Exercise} from "../../components/Exercise";
 
 interface IProps {
     navigation: any
@@ -52,24 +53,28 @@ export default class ExercisesScreen extends Component<IProps> {
                         if (loading) return <Text>Loading...</Text>;
                         if (error) return <Text>Error :(</Text>;
 
-                        const exercisesByCategory = Object.values<{ id: number, name: string, exercises: Exercise[] }>(data.exercises
+                        const exercisesByCategory = Object.values<{ id: number, name: string, items: ExerciseModel[] }>(data.exercises
                             .filter(e => searchQuery === '' || e.name.toLowerCase().includes(searchQuery.toLowerCase()))
                             .reduce((acc, exercise) => {
                                 if (!acc.hasOwnProperty(exercise.category.id)) {
                                     acc[exercise.category.id] = {
                                         id: exercise.category.id,
                                         name: exercise.category.name,
-                                        exercises: []
+                                        items: []
                                     };
                                 }
-                                acc[exercise.category.id].exercises = [...acc[exercise.category.id].exercises, exercise];
+                                acc[exercise.category.id].items = [...acc[exercise.category.id].items, exercise];
                                 return acc;
                             }, {}));
 
-                        return <GroupedActivityList exercisesByGroupName={exercisesByCategory}
-                                                    onExercisePress={exercise => {
-                                                        navigation.navigate('Exercise', {exercise})
-                                                    }}/>
+
+                        return <GroupedList itemsByGroupName={exercisesByCategory}
+                                            itemRenderer={item => <Exercise
+                                                        key={item.id}
+                                                        exercise={item}
+                                                        onPress={exercise => {
+                                                            navigation.navigate('Exercise', {exercise})
+                                                        }}/>}/>
                     }}
                 </Query>
             </SafeAreaView>

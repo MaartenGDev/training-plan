@@ -1,27 +1,26 @@
-import React, {FunctionComponent} from 'react';
+import React, {Component, FunctionComponent} from 'react';
 import {View, SectionList, StyleSheet, Text, Image, FlatList} from 'react-native';
-import {Exercise as ExerciseModel} from "../models/Exercise";
 import {Exercise} from "./Exercise";
 
 interface IProps {
-    exercisesByGroupName: {
+    itemsByGroupName: {
         id: number,
         name: string,
-        exercises: ExerciseModel[],
+        items: any[],
     }[];
-    onExercisePress: (exercise: ExerciseModel) => void
+    itemRenderer: (item: any) => any
 }
 
-export const GroupedActivityList: FunctionComponent<IProps> = ({exercisesByGroupName, onExercisePress}) => {
+export const GroupedList: FunctionComponent<IProps> = ({itemsByGroupName, itemRenderer}) => {
     return (
         <FlatList
             showsVerticalScrollIndicator={false}
             style={{marginLeft: 15, marginRight: 15}}
-            data={exercisesByGroupName}
+            data={itemsByGroupName}
             contentContainerStyle={{ flexGrow: 1 }}
             renderItem={({item}) => <View style={styles.workout}>
                 <Text style={styles.workoutHeader}>{item.name.toUpperCase()}</Text>
-                {item.exercises.map(activity => <Exercise key={activity.id} exercise={activity} onPress={onExercisePress}/>)}
+                {item.items.map(item => itemRenderer(item))}
             </View>}
             keyExtractor={(item) => item.id + ""}
         />

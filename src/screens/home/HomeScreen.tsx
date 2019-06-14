@@ -6,6 +6,7 @@ import {Workout} from "../../components/Workout";
 import {Exercise} from "../../components/Exercise";
 import {Query} from "react-apollo";
 import {gql} from "apollo-boost";
+import {Workshop} from "../../components/Workshop";
 
 interface IProps {
     navigation: any
@@ -26,9 +27,22 @@ export default class HomeScreen extends Component<IProps> {
                     workouts {
                         id
                          exercises {
+                          id
+                          name
                           sets
+                          imagePath
                           description
                           dateTime
+                        }
+                      }
+                      workshops {
+                        id
+                        name
+                        exercises {
+                          id
+                          name
+                          imagePath
+                          description
                         }
                       }
                      }
@@ -39,20 +53,25 @@ export default class HomeScreen extends Component<IProps> {
 
                         return (
                             <ScrollView style={styles.contentGroup}>
-
                                 <Text style={styles.greeting}>Welcome back, Maarten!</Text>
 
                                 <Text style={styles.heading}>Latest workouts</Text>
                                 <View style={styles.workouts}>
-                                    {data.workouts.map(workout => <Workout key={workout.id} workout={workout}/>)}
+                                    {data.workouts.slice(0, 5).map(workout => <Workout
+                                        key={workout.id}
+                                        workout={workout}
+                                        onPress={clickedWorkout =>
+                                            navigation.navigate('Workout', {workout: clickedWorkout})
+                                        }/>)}
                                 </View>
 
-                                <Text style={{...styles.heading, marginTop: 20}}>Upcoming lessons</Text>
-                                <View style={styles.exercises}>
-                                    {upcomingExercises.map(exercise => <Exercise key={exercise.id} exercise={exercise}
-                                                                                 onPress={clickedExercise =>
-                                                                                     navigation.navigate('Exercise', {exercise: clickedExercise})
-                                                                                 }/>)}
+                                <Text style={{...styles.heading, marginTop: 20}}>Upcoming workshops</Text>
+                                <View style={styles.workshops}>
+                                    {data.workshops.map(workshop => <Workshop
+                                        key={workshop.id} workshop={workshop}
+                                        onPress={clickedWorkshop =>
+                                            navigation.navigate('Workshop', {workshop: clickedWorkshop})
+                                        }/>)}
                                 </View>
                             </ScrollView>
                         )
@@ -77,7 +96,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         color: '#606F7B'
     },
-    exercises: {
+    workshops: {
         shadowColor: "#000",
         shadowOffset: {
             width: 0,

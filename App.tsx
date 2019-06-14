@@ -10,6 +10,8 @@ import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import {createHttpLink} from "apollo-link-http";
 import {InMemoryCache} from "apollo-cache-inmemory";
+import WorkoutScreen from "./src/screens/workouts/WorkoutScreen";
+import WorkoutsScreen from "./src/screens/workouts/WorkoutsScreen";
 
 const link = createHttpLink({
     uri: "https://training-plan-api.maartendev.me/graphql"
@@ -22,32 +24,22 @@ const client = new ApolloClient({
 
 const DrawerNavigator = createDrawerNavigator({
     Home: {
-        screen: HomeScreen,
-        navigationOptions: ({navigation}) => ({
-            drawerLabel: 'Home',
-            drawerIcon: ({tintColor}) => <Icon name="home" size={30} color={tintColor}/>,
-        })
+        screen: HomeScreen
     },
     TrainingSchedules: {
         screen: TrainingSchedulesScreen,
-        displayName: "test",
-        navigationOptions: ({navigation}) => ({
-            drawerLabel: 'Training Schedules',
-            drawerIcon: ({tintColor}) => <Icon name="whatshot" size={30} color={tintColor}/>,
-        })
     },
     Exercises: {
-        screen: ExercisesScreen,
-        navigationOptions: ({navigation}) => ({
-            drawerLabel: 'Exercises',
-            drawerIcon: ({tintColor}) => <Icon name="hourglass-empty" size={30} color={tintColor}/>
-        })
+        screen: ExercisesScreen
     },
     Exercise: {
-        screen: ExerciseScreen,
-        navigationOptions: ({navigation}) => ({
-            drawerLabel: () => null,
-        })
+        screen: ExerciseScreen
+    },
+    Workout: {
+        screen: WorkoutScreen
+    },
+    Workouts: {
+        screen: WorkoutsScreen
     },
 }, {
     contentComponent: props => <Sidebar {...props} pagesByRouteKey={{
@@ -57,11 +49,15 @@ const DrawerNavigator = createDrawerNavigator({
         },
         TrainingSchedules: {
             label: 'Training Schedules',
-            icon: 'whatshot'
+            icon: 'assignment'
         },
         Exercises: {
             label: 'Exercises',
             icon: 'hourglass-empty'
+        },
+        Workouts: {
+            label: 'Workouts',
+            icon: 'whatshot'
         }
     }}/>
 });

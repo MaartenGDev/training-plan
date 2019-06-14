@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {SafeAreaView} from 'react-navigation';
 import {Exercise} from '../../components/Exercise';
-import {GroupedActivityList} from "../../components/GroupedActivityList";
+import {GroupedList} from "../../components/GroupedList";
 import {Query} from "react-apollo";
 import {gql} from "apollo-boost";
 import {Text} from "react-native";
@@ -36,10 +36,15 @@ export default class TrainingSchedulesScreen extends Component<IProps> {
                         if (loading) return <Text>Loading...</Text>;
                         if (error) return <Text>Error :(</Text>;
 
-                        return (
-                            <GroupedActivityList exercisesByGroupName={data.trainingSchedules} onExercisePress={exercise => {
-                                navigation.navigate('Exercise', {exercise: exercise, title: 'oef'})
-                            }}/>)
+                        const itemsByGroupName = data.trainingSchedules.map(x => ({...x, items: x.exercises}));
+
+                        return <GroupedList itemsByGroupName={itemsByGroupName}
+                                            itemRenderer={item => <Exercise
+                                                key={item.id}
+                                                exercise={item}
+                                                onPress={exercise => {
+                                                    navigation.navigate('Exercise', {exercise})
+                                                }}/>}/>
                     }}
                 </Query>
             </SafeAreaView>
