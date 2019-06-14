@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {DrawerItemsProps, NavigationActions, NavigationRoute} from 'react-navigation';
-import {Text, View, StyleSheet} from 'react-native'
+import {Text, View, StyleSheet, TouchableHighlight} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
@@ -28,14 +28,16 @@ export class Sidebar extends Component<IProps> {
                 <View style={styles.screenContainer}>
                     {items.filter(x => pagesByRouteKey.hasOwnProperty(x.key))
                         .map(item => {
-                            return <View
-                                key={item.key}
-                                style={[styles.item, (this.props.activeItemKey == item.key) ? styles.activeBackgroundColor : null]}>
-                                <Icon name={pagesByRouteKey[item.routeName].icon} size={30} color={getTintColor(item)}/>
-                                <Text
-                                    style={[styles.itemText, (this.props.activeItemKey == item.key) ? styles.selectedItem : null]}
-                                    onPress={this.navigateToScreen(item.routeName)}>{pagesByRouteKey[item.routeName].label}</Text>
-                            </View>
+                            return <TouchableHighlight onPress={this.navigateToScreen(item.routeName)}>
+                                <View
+                                    key={item.key}
+                                    style={[styles.item, (this.props.activeItemKey == item.key) ? styles.activeBackgroundColor : null]}>
+                                    <Icon name={pagesByRouteKey[item.routeName].icon} size={30}
+                                          color={getTintColor(item)}/>
+                                    <Text
+                                        style={[styles.itemText, (this.props.activeItemKey == item.key) ? styles.selectedItem : null]}>{pagesByRouteKey[item.routeName].label}</Text>
+                                </View>
+                            </TouchableHighlight>
                         })}
                 </View>
             </View>
