@@ -21,8 +21,10 @@ export default class HomeScreen extends Component<IProps> {
 
         return (
             <SafeAreaView style={styles.container}>
-                <Query
-                    query={gql`
+                <ScrollView style={styles.contentGroup}>
+                    <Text style={styles.greeting}>Welcome back, Maarten!</Text>
+                    <Query
+                        query={gql`
                     {
                     workouts {
                         id
@@ -47,36 +49,37 @@ export default class HomeScreen extends Component<IProps> {
                       }
                      }
                 `}>
-                    {({loading, error, data}) => {
-                        if (loading) return <Text>Loading...</Text>;
-                        if (error) return <Text>Error :(</Text>;
+                        {({loading, error, data}) => {
+                            if (loading) return <Text>Loading...</Text>;
+                            if (error) return <Text>Error :(</Text>;
 
-                        return (
-                            <ScrollView style={styles.contentGroup}>
-                                <Text style={styles.greeting}>Welcome back, Maarten!</Text>
+                            return (
+                                <View>
 
-                                <Text style={styles.heading}>Latest workouts</Text>
-                                <View style={styles.workouts}>
-                                    {data.workouts.slice(0, 5).map(workout => <Workout
-                                        key={workout.id}
-                                        workout={workout}
-                                        onPress={clickedWorkout =>
-                                            navigation.navigate('Workout', {workout: clickedWorkout})
-                                        }/>)}
+                                    <Text style={styles.heading}>Latest workouts</Text>
+                                    <View style={styles.workouts}>
+                                        {data.workouts.slice(0, 5).map(workout => <Workout
+                                            key={workout.id}
+                                            workout={workout}
+                                            onPress={clickedWorkout =>
+                                                navigation.navigate('Workout', {workout: clickedWorkout})
+                                            }/>)}
+                                    </View>
+
+                                    <Text style={{...styles.heading, marginTop: 20}}>Upcoming workshops</Text>
+                                    <View style={styles.workshops}>
+                                        {data.workshops.map(workshop => <Workshop
+                                            key={workshop.id} workshop={workshop}
+                                            onPress={clickedWorkshop =>
+                                                navigation.navigate('Workshop', {workshop: clickedWorkshop})
+                                            }/>)}
+                                    </View>
                                 </View>
+                            )
+                        }}
+                    </Query>
+                </ScrollView>
 
-                                <Text style={{...styles.heading, marginTop: 20}}>Upcoming workshops</Text>
-                                <View style={styles.workshops}>
-                                    {data.workshops.map(workshop => <Workshop
-                                        key={workshop.id} workshop={workshop}
-                                        onPress={clickedWorkshop =>
-                                            navigation.navigate('Workshop', {workshop: clickedWorkshop})
-                                        }/>)}
-                                </View>
-                            </ScrollView>
-                        )
-                    }}
-                </Query>
             </SafeAreaView>
         )
     }

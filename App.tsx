@@ -12,6 +12,8 @@ import {createHttpLink} from "apollo-link-http";
 import {InMemoryCache} from "apollo-cache-inmemory";
 import WorkoutScreen from "./src/screens/workouts/WorkoutScreen";
 import WorkoutsScreen from "./src/screens/workouts/WorkoutsScreen";
+import WorkshopScreen from "./src/screens/workshop/WorkshopScreen";
+import WorkshopsScreen from "./src/screens/workshop/WorkshopsScreen";
 
 const link = createHttpLink({
     uri: "https://training-plan-api.maartendev.me/graphql"
@@ -35,11 +37,17 @@ const DrawerNavigator = createDrawerNavigator({
     Exercise: {
         screen: ExerciseScreen
     },
+    Workouts: {
+        screen: WorkoutsScreen
+    },
     Workout: {
         screen: WorkoutScreen
     },
-    Workouts: {
-        screen: WorkoutsScreen
+    Workshops: {
+        screen: WorkshopsScreen
+    },
+    Workshop: {
+        screen: WorkshopScreen
     },
 }, {
     contentComponent: props => <Sidebar {...props} pagesByRouteKey={{
@@ -58,6 +66,10 @@ const DrawerNavigator = createDrawerNavigator({
         Workouts: {
             label: 'Workouts',
             icon: 'whatshot'
+        },
+        Workshops: {
+            label: 'Workshops',
+            icon: 'school'
         }
     }}/>
 });
