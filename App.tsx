@@ -104,11 +104,10 @@ const StackNavigation = createStackNavigator({
     drawer: {
         screen: DrawerNavigator,
         navigationOptions: ({navigation}) => ({
-            title: 'Home yess',
+            title: 'Home',
             headerLeft: <Icon name="menu" size={30} color="#000000" onPress={() => navigation.toggleDrawer()}
                               style={{marginLeft: 10}}/>,
-        }),
-        initialRouteName: 'HomeScreen',
+        })
     },
 });
 

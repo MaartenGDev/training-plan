@@ -109,8 +109,8 @@ export default class ExerciseScreen extends Component<IProps> {
                                                 }}>{new Date().toDateString()}</Text>
                                         </View>
                                         <View style={{flexDirection: 'row'}}>
-                                            <Text style={{fontWeight: 'bold', color: '#4A4A4A'}}>Count: </Text>
-                                            <Text style={{marginLeft: 2, color: '#4A4A4A'}}>22</Text>
+                                            <Text style={{fontWeight: 'bold', color: '#4A4A4A'}}>Performed count: </Text>
+                                            <Text style={{marginLeft: 2, color: '#4A4A4A'}}>{(exercise.workouts || []).reduce((acc, cur) => acc + (cur.exercises || []).filter(e => e.id === exercise.id).length, 0)}</Text>
                                         </View>
                                     </View>
 
@@ -132,7 +132,7 @@ export default class ExerciseScreen extends Component<IProps> {
 
                                     {(exercise.workouts || []).length > 0 && (<View>
                                         <Text style={textStyles.heading}>Workouts</Text>
-                                        <View style={styles.workouts}>{(exercise.workouts || []).map(workout => <Workout
+                                        <View style={styles.workouts}>{exercise.workouts.map(workout => <Workout
                                             key={workout.id}
                                             workout={workout}
                                             onPress={clickedWorkout =>
