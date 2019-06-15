@@ -3,9 +3,10 @@ import {View, SectionList, StyleSheet, Text, Image, ScrollView} from 'react-nati
 import {SafeAreaView} from 'react-navigation';
 import {Workshop as WorkshopModel} from '../../models/Workshop'
 import {Exercise} from "../../components/Exercise";
+import textStyles from '../../styles/Text'
 
 interface IProps {
-    navigation: { push: any, state: { params: { workshop: WorkshopModel} } },
+    navigation: { push: any, state: { params: { workshop: WorkshopModel } } },
     title: string,
 }
 
@@ -20,7 +21,7 @@ export default class WorkshopScreen extends Component<IProps> {
                     <View style={styles.contentGroup}>
                         <Text style={{fontSize: 20, fontWeight: 'bold', color: '#606F7B'}}>{workshop.name}</Text>
 
-                        <Text style={styles.heading}>Details</Text>
+                        <Text style={textStyles.heading}>Details</Text>
                         <View style={{marginTop: 4}}>
                             <View style={{flexDirection: 'row'}}>
                                 <Text style={{fontWeight: 'bold', color: '#4A4A4A'}}>Date: </Text>
@@ -30,16 +31,19 @@ export default class WorkshopScreen extends Component<IProps> {
                                         color: '#4A4A4A'
                                     }}>{new Date().toDateString()}</Text>
                             </View>
-                            <View style={{flexDirection: 'row'}}>
+                            {workshop.exercises.length > 0 && (<View style={{flexDirection: 'row'}}>
                                 <Text style={{fontWeight: 'bold', color: '#4A4A4A'}}>Exercises: </Text>
-                                <Text style={{marginLeft: 2, color: '#4A4A4A'}}>{workshop.exercises || [].length}</Text>
-                            </View>
+                                <Text style={{marginLeft: 2, color: '#4A4A4A'}}>{(workshop.exercises || []).length}</Text>
+                            </View>)}
                         </View>
 
-                        <Text style={styles.heading}>Exercises</Text>
-                        <View style={{ marginTop: 4 }}>
-                            {workshop.exercises.map(exercise => <Exercise key={exercise.id} exercise={exercise} onPress={clickedExercise => navigation.push('Exercise', {exercise: clickedExercise})}/>)}
-                        </View>
+                        {workshop.exercises.length > 0 && <View>
+                          <Text style={textStyles.heading}>Exercises</Text>
+                          <View style={{marginTop: 4}}>
+                              {workshop.exercises.map(exercise => <Exercise key={exercise.id} exercise={exercise}
+                                                                            onPress={clickedExercise => navigation.push('Exercise', {exercise: clickedExercise})}/>)}
+                          </View>
+                        </View>}
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -48,11 +52,6 @@ export default class WorkshopScreen extends Component<IProps> {
 }
 
 const styles = StyleSheet.create({
-    heading: {
-        fontSize: 14,
-        marginTop: 15,
-        color: '#606F7B'
-    },
     contentGroup: {
         marginTop: 15,
         marginLeft: 15,

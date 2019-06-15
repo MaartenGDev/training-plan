@@ -32,12 +32,38 @@ const client = new ApolloClient({
     link,
 });
 
+const pagesByRouteKey = {
+    Home: {
+        label: 'Home',
+        icon: 'home'
+    },
+    TrainingSchedules: {
+        label: 'Training Schedules',
+        icon: 'assignment'
+    },
+    Exercises: {
+        label: 'Exercises',
+        icon: 'hourglass-empty'
+    },
+    Workouts: {
+        label: 'Workouts',
+        icon: 'whatshot'
+    },
+    Workshops: {
+        label: 'Workshops',
+        icon: 'school'
+    }
+};
+
 const DrawerNavigator = createDrawerNavigator({
     Home: {
         screen: HomeScreen
     },
     Exercises: {
-        screen: ExercisesScreen
+        screen: ExercisesScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Exercises',
+        })
     },
     TrainingSchedules: {
         screen: TrainingSchedulesScreen,
@@ -46,7 +72,10 @@ const DrawerNavigator = createDrawerNavigator({
         screen: ExerciseScreen
     },
     Workouts: {
-        screen: WorkoutsScreen
+        screen: WorkoutsScreen,
+        navigationOptions : {
+
+        }
     },
     Workout: {
         screen: WorkoutScreen
@@ -58,38 +87,28 @@ const DrawerNavigator = createDrawerNavigator({
         screen: WorkshopScreen
     },
 }, {
-    contentComponent: props => <Sidebar {...props} pagesByRouteKey={{
-        Home: {
-            label: 'Home',
-            icon: 'home'
-        },
-        TrainingSchedules: {
-            label: 'Training Schedules',
-            icon: 'assignment'
-        },
-        Exercises: {
-            label: 'Exercises',
-            icon: 'hourglass-empty'
-        },
-        Workouts: {
-            label: 'Workouts',
-            icon: 'whatshot'
-        },
-        Workshops: {
-            label: 'Workshops',
-            icon: 'school'
-        }
-    }}/>
+    contentComponent: props => <Sidebar {...props} pagesByRouteKey={pagesByRouteKey}/>
 });
+
+DrawerNavigator.navigationOptions = ({ navigation }) => {
+    const { key, routeName } = navigation.state.routes[navigation.state.index];
+
+    return {
+        headerTitle: pagesByRouteKey.hasOwnProperty(key)
+            ? pagesByRouteKey[key].label
+            : routeName
+    };
+};
 
 const StackNavigation = createStackNavigator({
     drawer: {
         screen: DrawerNavigator,
         navigationOptions: ({navigation}) => ({
-            title: 'Home',
+            title: 'Home yess',
             headerLeft: <Icon name="menu" size={30} color="#000000" onPress={() => navigation.toggleDrawer()}
                               style={{marginLeft: 10}}/>,
-        })
+        }),
+        initialRouteName: 'HomeScreen',
     },
 });
 

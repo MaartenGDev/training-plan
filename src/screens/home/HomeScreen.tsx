@@ -7,6 +7,7 @@ import {Query} from "react-apollo";
 import {gql} from "apollo-boost";
 import {Workshop} from "../../components/Workshop";
 import listStyles from '../../styles/Lists'
+import textStyles from '../../styles/Text'
 
 interface IProps {
     navigation: any
@@ -23,7 +24,7 @@ export default class HomeScreen extends Component<IProps> {
                     <Query
                         query={gql`
                     {
-                    workouts {
+                    workouts {  
                         id
                          exercises {
                           id
@@ -57,7 +58,7 @@ export default class HomeScreen extends Component<IProps> {
                             return (
                                 <View>
 
-                                    <Text style={styles.heading}>Latest workouts</Text>
+                                    <Text style={textStyles.heading}>Latest workouts</Text>
                                     <View style={listStyles.wrapper}>
                                         {data.workouts.slice(0, 5).map(workout => <Workout
                                             key={workout.id}
@@ -67,7 +68,7 @@ export default class HomeScreen extends Component<IProps> {
                                             }/>)}
                                     </View>
 
-                                    <Text style={{...styles.heading, marginTop: 20}}>Upcoming workshops</Text>
+                                    <Text style={{...textStyles.heading, marginTop: 20}}>Upcoming workshops</Text>
                                     <View style={listStyles.wrapper}>
                                         {data.workshops.map(workshop => <Workshop
                                             key={workshop.id} workshop={workshop}
@@ -94,11 +95,6 @@ const styles = StyleSheet.create({
         fontSize: 35,
         fontWeight: 'bold',
         color: '#4a5568'
-    },
-    heading: {
-        fontSize: 14,
-        marginTop: 15,
-        color: '#606F7B'
     },
     contentGroup: {
         marginTop: 15,

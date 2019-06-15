@@ -16,7 +16,7 @@ export const Workout: FunctionComponent<IProps> = ({workout, onPress}) => {
     return (
         <TouchableHighlight onPress={e => onPress(workout)}>
             <View style={styles.item}>
-                <Text style={{fontWeight: 'bold'}}>Workout #{workout.id}!</Text>
+                <Text style={{fontWeight: 'bold'}}>Workout #{workout.id}</Text>
                 <Text style={{color: '#9B9B9B'}}>{workout.exercises.length} Exercises</Text>
                 <Text style={{color: '#9B9B9B'}}>{DateHelper.format(exerciseDates[0], {includeDay: true})} {DateHelper.getTime(exerciseDates[0])} - {DateHelper.getTime(exerciseDates[exerciseDates.length -1])}</Text>
             </View>
