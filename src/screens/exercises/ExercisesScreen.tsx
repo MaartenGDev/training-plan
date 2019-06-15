@@ -67,9 +67,8 @@ export default class ExercisesScreen extends Component<IProps> {
                                 return acc;
                             }, {}));
 
-
                         return <GroupedList itemsByGroupName={exercisesByCategory}
-                                            itemRenderer={item => <Exercise
+                                            itemRenderer={(item, group) => <Exercise
                                                         key={item.id}
                                                         exercise={item}
                                                         onPress={exercise => {

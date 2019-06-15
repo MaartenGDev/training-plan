@@ -1,6 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet, Text, Image, TouchableHighlight} from 'react-native';
 import {Workout as WorkoutModel} from "../models/Workout";
+import {DateHelper} from "../helpers/DateHelper";
 
 interface IProps {
     workout: WorkoutModel;
@@ -17,7 +18,7 @@ export const Workout: FunctionComponent<IProps> = ({workout, onPress}) => {
             <View style={styles.item}>
                 <Text style={{fontWeight: 'bold'}}>Workout #{workout.id}!</Text>
                 <Text style={{color: '#9B9B9B'}}>{workout.exercises.length} Exercises</Text>
-                <Text style={{color: '#9B9B9B'}}>Date: {exerciseDates[0].toDateString()} - {exerciseDates[exerciseDates.length -1].toDateString()}</Text>
+                <Text style={{color: '#9B9B9B'}}>{DateHelper.format(exerciseDates[0], {includeDay: true})} {DateHelper.getTime(exerciseDates[0])} - {DateHelper.getTime(exerciseDates[exerciseDates.length -1])}</Text>
             </View>
         </TouchableHighlight>
     );

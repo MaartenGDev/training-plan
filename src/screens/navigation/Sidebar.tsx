@@ -28,9 +28,8 @@ export class Sidebar extends Component<IProps> {
                 <View style={styles.screenContainer}>
                     {items.filter(x => pagesByRouteKey.hasOwnProperty(x.key))
                         .map(item => {
-                            return <TouchableHighlight onPress={this.navigateToScreen(item.routeName)}>
+                            return <TouchableHighlight onPress={this.navigateToScreen(item.routeName)} key={item.key}>
                                 <View
-                                    key={item.key}
                                     style={[styles.item, (this.props.activeItemKey == item.key) ? styles.activeBackgroundColor : null]}>
                                     <Icon name={pagesByRouteKey[item.routeName].icon} size={30}
                                           color={getTintColor(item)}/>

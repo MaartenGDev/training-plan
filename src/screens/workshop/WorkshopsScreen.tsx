@@ -5,7 +5,6 @@ import {Exercise as ExerciseModel} from "../../models/Exercise";
 import {GroupedList} from "../../components/GroupedList";
 import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
-import {Workshop} from "../../components/Workshop";
 import {Exercise} from "../../components/Exercise";
 
 interface IProps {
@@ -22,6 +21,10 @@ const GET_WORKSHOPS_QUERY = gql`
                           name
                           imagePath
                           description
+                          category {
+                            id
+                            name
+                          }
                         }
                       }
                      }

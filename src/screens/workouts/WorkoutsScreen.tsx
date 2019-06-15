@@ -7,6 +7,7 @@ import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
 import {Workout as WorkoutModel} from "../../models/Workout";
 import {Workout} from "../../components/Workout";
+import {DateHelper} from "../../helpers/DateHelper";
 
 interface IProps {
     navigation: any
@@ -20,6 +21,10 @@ const GET_WORKOUTS_QUERY = gql`
                           id
                           name
                           sets
+                          category {
+                            id
+                            name
+                          }
                           imagePath
                           description
                           dateTime
@@ -27,10 +32,6 @@ const GET_WORKOUTS_QUERY = gql`
                       }
                      }
                 `;
-
-const getDateAsYmd = (date:Date) => {
-    return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
-};
 
 export default class WorkoutsScreen extends Component<IProps> {
     render() {
@@ -49,7 +50,8 @@ export default class WorkoutsScreen extends Component<IProps> {
 
                         const workoutsByDate = Object.values<{ id: number, name: string, items: WorkoutModel[] }>(workouts
                             .reduce((acc, workout) => {
-                                const date = getDateAsYmd(new Date(workout.exercises[0].dateTime));
+                                const date = DateHelper.format(new Date(workout.exercises[0].dateTime));
+
                                 if (!acc.hasOwnProperty(date)) {
                                     acc[date] = {
                                         id: date,
@@ -63,8 +65,8 @@ export default class WorkoutsScreen extends Component<IProps> {
 
 
                         return <GroupedList itemsByGroupName={workoutsByDate}
-                                            itemRenderer={item => <Workout
-                                                key={item.id}
+                                            itemRenderer={(item, group) => <Workout
+                                                key={`${item.id}${group.id}`}
                                                 workout={item}
                                                 onPress={workout => {
                                                     navigation.navigate('Workout', {workout})

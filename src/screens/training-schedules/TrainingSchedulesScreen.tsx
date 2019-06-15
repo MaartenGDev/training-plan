@@ -28,6 +28,10 @@ export default class TrainingSchedulesScreen extends Component<IProps> {
                           description
                           name
                           sets
+                          category {
+                            id
+                            name
+                          }
                         }
                       }
                      }

@@ -35,6 +35,10 @@ export default class HomeScreen extends Component<IProps> {
                           imagePath
                           description
                           dateTime
+                          category {
+                            id
+                            name
+                          }
                         }
                       }
                       workshops {

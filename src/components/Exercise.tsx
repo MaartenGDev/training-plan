@@ -4,10 +4,11 @@ import {Exercise as ExerciseModel} from "../models/Exercise";
 
 interface IProps {
     exercise: ExerciseModel;
-    onPress: (exercise: ExerciseModel) => any
+    onPress: (exercise: ExerciseModel) => any,
+    options?: {showLastPerformed?: boolean, showCategory?: boolean, showSets?: boolean}
 }
 
-export const Exercise: FunctionComponent<IProps> = ({exercise, onPress}) => {
+export const Exercise: FunctionComponent<IProps> = ({exercise, onPress, options = {showLastPerformed: false, showCategory: false, showSets: false}}) => {
     return (
         <TouchableHighlight onPress={e => onPress(exercise)}>
             <View style={styles.item}>
@@ -17,8 +18,9 @@ export const Exercise: FunctionComponent<IProps> = ({exercise, onPress}) => {
                 />
                 <View style={styles.details}>
                     <Text style={{fontWeight: 'bold'}}>{exercise.name}</Text>
-                    <Text style={{color: '#9B9B9B'}}>Sets: {exercise.sets}</Text>
-                    <Text style={{color: '#9B9B9B'}}>Last Performed: {new Date().toDateString()}</Text>
+                    {options.showSets && <Text style={{color: '#9B9B9B'}}>Sets: {exercise.sets}</Text>}
+                    {options.showLastPerformed && <Text style={{color: '#9B9B9B'}}>Last Performed: {new Date().toDateString()}</Text>}
+                    {options.showCategory && <Text style={{color: '#9B9B9B'}}>Category: {exercise.category.name}</Text>}
                 </View>
             </View>
         </TouchableHighlight>

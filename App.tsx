@@ -6,10 +6,10 @@ import ExercisesScreen from "./src/screens/exercises/ExercisesScreen";
 import ExerciseScreen from "./src/screens/exercises/ExerciseScreen";
 import TrainingSchedulesScreen from "./src/screens/training-schedules/TrainingSchedulesScreen";
 import {Sidebar} from "./src/screens/navigation/Sidebar";
-import { ApolloClient } from 'apollo-client';
-import { ApolloProvider } from 'react-apollo';
+import {ApolloClient} from 'apollo-client';
+import {ApolloProvider} from 'react-apollo';
 import {createHttpLink} from "apollo-link-http";
-import {InMemoryCache} from "apollo-cache-inmemory";
+import {InMemoryCache, defaultDataIdFromObject} from "apollo-cache-inmemory";
 import WorkoutScreen from "./src/screens/workouts/WorkoutScreen";
 import WorkoutsScreen from "./src/screens/workouts/WorkoutsScreen";
 import WorkshopScreen from "./src/screens/workshop/WorkshopScreen";
@@ -20,7 +20,15 @@ const link = createHttpLink({
 });
 
 const client = new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+        dataIdFromObject: (object: any) => {
+            if (object.__typename === 'WorkoutExerciseType') {
+                return object.id + '' + (object.dateTime || '');
+            }
+
+            return defaultDataIdFromObject(object);
+        }
+    }),
     link,
 });
 
@@ -28,11 +36,11 @@ const DrawerNavigator = createDrawerNavigator({
     Home: {
         screen: HomeScreen
     },
-    TrainingSchedules: {
-        screen: TrainingSchedulesScreen,
-    },
     Exercises: {
         screen: ExercisesScreen
+    },
+    TrainingSchedules: {
+        screen: TrainingSchedulesScreen,
     },
     Exercise: {
         screen: ExerciseScreen
@@ -89,7 +97,7 @@ const NavContainer = createAppContainer(StackNavigation);
 
 const App = () => (
     <ApolloProvider client={client}>
-        <NavContainer />
+        <NavContainer/>
     </ApolloProvider>
 );
 

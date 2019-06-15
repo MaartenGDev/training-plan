@@ -6,19 +6,14 @@ import {Workout} from "../../components/Workout";
 import {Workshop} from "../../models/Workshop";
 import {Workout as WorkoutModel} from '../../models/Workout'
 import {Exercise} from "../../components/Exercise";
+import {DateHelper} from "../../helpers/DateHelper";
 
 interface IProps {
-    navigation: { navigate: any, state: { params: { workout: WorkoutModel} } },
+    navigation: { navigate: any, state: { params: { workout: WorkoutModel } } },
     title: string,
 }
 
 export default class WorkoutScreen extends Component<IProps> {
-    getTitleForWorkshop(workshop: Workshop): string {
-        const words = workshop.name.split(' ');
-
-        return words.map(word => word[0].toUpperCase()).join('');
-    }
-
     render() {
         const {navigation} = this.props;
         const {workout} = navigation.state.params;
@@ -37,7 +32,7 @@ export default class WorkoutScreen extends Component<IProps> {
                                     style={{
                                         marginLeft: 2,
                                         color: '#4A4A4A'
-                                    }}>{new Date().toDateString()}</Text>
+                                    }}>{DateHelper.format(new Date(workout.exercises[0].dateTime), {includeDay: true})}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <Text style={{fontWeight: 'bold', color: '#4A4A4A'}}>Exercises: </Text>
@@ -46,10 +41,16 @@ export default class WorkoutScreen extends Component<IProps> {
                         </View>
 
                         <Text style={styles.heading}>Exercises</Text>
-                        <View style={{ marginTop: 4}}>
-                            {workout.exercises.map(exercise => <Exercise key={exercise.id} exercise={exercise} onPress={clickedExercise => {
-                                navigation.navigate('Exercise', {exercise: clickedExercise})
-                            }}/>)}
+                        <View style={{marginTop: 4}}>
+                            {workout.exercises
+                                .sort((e1, e2) => new Date(e1.dateTime).getTime() - new Date(e2.dateTime).getTime())
+                                .map(exercise => <Exercise
+                                    key={exercise.id + new Date(exercise.dateTime).getTime()}
+                                    exercise={exercise}
+                                    options={{showCategory: true}}
+                                    onPress={clickedExercise => {
+                                        navigation.navigate('Exercise', {exercise: clickedExercise})
+                                    }}/>)}
                         </View>
                     </View>
                 </ScrollView>
