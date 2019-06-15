@@ -3,21 +3,18 @@ import {Component} from 'react'
 import {ScrollView, StyleSheet, Text, View} from 'react-native'
 import {SafeAreaView} from 'react-navigation'
 import {Workout} from "../../components/Workout";
-import {Exercise} from "../../components/Exercise";
 import {Query} from "react-apollo";
 import {gql} from "apollo-boost";
 import {Workshop} from "../../components/Workshop";
+import listStyles from '../../styles/Lists'
 
 interface IProps {
     navigation: any
 }
 
 export default class HomeScreen extends Component<IProps> {
-
     render() {
-        const upcomingExercises = [];
         const {navigation} = this.props;
-
 
         return (
             <SafeAreaView style={styles.container}>
@@ -61,7 +58,7 @@ export default class HomeScreen extends Component<IProps> {
                                 <View>
 
                                     <Text style={styles.heading}>Latest workouts</Text>
-                                    <View style={styles.workouts}>
+                                    <View style={listStyles.wrapper}>
                                         {data.workouts.slice(0, 5).map(workout => <Workout
                                             key={workout.id}
                                             workout={workout}
@@ -71,7 +68,7 @@ export default class HomeScreen extends Component<IProps> {
                                     </View>
 
                                     <Text style={{...styles.heading, marginTop: 20}}>Upcoming workshops</Text>
-                                    <View style={styles.workshops}>
+                                    <View style={listStyles.wrapper}>
                                         {data.workshops.map(workshop => <Workshop
                                             key={workshop.id} workshop={workshop}
                                             onPress={clickedWorkshop =>
@@ -102,28 +99,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginTop: 15,
         color: '#606F7B'
-    },
-    workshops: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        marginTop: 4,
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    workouts: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        marginTop: 4,
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
     },
     contentGroup: {
         marginTop: 15,

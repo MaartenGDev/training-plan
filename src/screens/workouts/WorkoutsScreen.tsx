@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native'
+import {StyleSheet, Text} from 'react-native'
 import {SafeAreaView} from 'react-navigation';
-import {Exercise} from "../../models/Exercise";
 import {GroupedList} from "../../components/GroupedList";
 import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
@@ -78,30 +77,3 @@ export default class WorkoutsScreen extends Component<IProps> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    searchWrapper: {
-        backgroundColor: '#ffffff',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.00,
-
-        elevation: 1,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 10,
-        paddingBottom: 10
-    },
-    searchInput: {
-        backgroundColor: '#F2F3F7',
-        height: 30,
-        paddingTop: 5,
-        paddingBottom: 5,
-        paddingLeft: 10,
-        paddingRight: 10
-    }
-});

@@ -48,29 +48,10 @@ export default class WorkshopScreen extends Component<IProps> {
 }
 
 const styles = StyleSheet.create({
-    workouts: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        marginTop: 4,
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
     heading: {
         fontSize: 14,
         marginTop: 15,
         color: '#606F7B'
-    },
-    tile: {
-        marginRight: 5,
-        height: 50,
-        width: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#4299E1'
     },
     contentGroup: {
         marginTop: 15,

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native'
+import {Text, TextInput, View} from 'react-native'
 import {SafeAreaView} from 'react-navigation';
-import {Exercise as ExerciseModel} from "../../models/Exercise";
 import {GroupedList} from "../../components/GroupedList";
 import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
 import {Exercise} from "../../components/Exercise";
+import inputStyles from '../../styles/Input'
 
 interface IProps {
     navigation: any
@@ -41,9 +41,9 @@ export default class WorkshopsScreen extends Component<IProps> {
 
         return (
             <SafeAreaView style={{backgroundColor: '#F2F3F7', flexGrow: 1}}>
-                <View style={styles.searchWrapper}>
+                <View style={inputStyles.searchWrapper}>
                     <TextInput
-                        style={styles.searchInput}
+                        style={inputStyles.searchInput}
                         placeholder='Search workshops'
                         onChangeText={(searchQuery) => this.setState({searchQuery})}
                         value={searchQuery}
@@ -75,30 +75,3 @@ export default class WorkshopsScreen extends Component<IProps> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    searchWrapper: {
-        backgroundColor: '#ffffff',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.00,
-
-        elevation: 1,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 10,
-        paddingBottom: 10
-    },
-    searchInput: {
-        backgroundColor: '#F2F3F7',
-        height: 30,
-        paddingTop: 5,
-        paddingBottom: 5,
-        paddingLeft: 10,
-        paddingRight: 10
-    }
-});

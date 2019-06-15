@@ -1,6 +1,6 @@
-import React, {Component, FunctionComponent} from 'react';
-import {View, SectionList, StyleSheet, Text, Image, FlatList} from 'react-native';
-import {Exercise} from "./Exercise";
+import React, {FunctionComponent} from 'react';
+import {View, StyleSheet, Text, Image, FlatList} from 'react-native';
+import listStyles from './../styles/Lists';
 
 interface IProps {
     itemsByGroupName: {
@@ -18,7 +18,7 @@ export const GroupedList: FunctionComponent<IProps> = ({itemsByGroupName, itemRe
             style={{marginLeft: 15, marginRight: 15}}
             data={itemsByGroupName}
             contentContainerStyle={{ flexGrow: 1 }}
-            renderItem={({item: group}) => <View style={styles.workout}>
+            renderItem={({item: group}) => <View style={listStyles.wrapper}>
                 <Text style={styles.workoutHeader}>{group.name.toUpperCase()}</Text>
                 {group.items.map(item => itemRenderer(item, group))}
             </View>}
@@ -31,17 +31,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 22
-    },
-    workout: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        marginTop: 15,
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
     },
     workoutHeader: {
         paddingTop: 4,

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, SectionList, StyleSheet, Text, Image, ScrollView} from 'react-native';
+import {View, StyleSheet, Text, Image, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-navigation';
 import {Exercise} from "../../models/Exercise";
 import {Dimensions} from 'react-native';
@@ -99,8 +99,8 @@ const styles = StyleSheet.create({
     },
     tile: {
         marginRight: 5,
-        height: 50,
-        width: 50,
+        height: 80,
+        width: 80,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#4299E1'

@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {View, SectionList, StyleSheet, Text, Image, ScrollView} from 'react-native';
+import {View, StyleSheet, Text, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-navigation';
-import {Dimensions} from 'react-native';
-import {Workout} from "../../components/Workout";
-import {Workshop} from "../../models/Workshop";
 import {Workout as WorkoutModel} from '../../models/Workout'
 import {Exercise} from "../../components/Exercise";
 import {DateHelper} from "../../helpers/DateHelper";
+import listStyles from '../../styles/Lists'
+
 
 interface IProps {
     navigation: { navigate: any, state: { params: { workout: WorkoutModel } } },
@@ -41,7 +40,7 @@ export default class WorkoutScreen extends Component<IProps> {
                         </View>
 
                         <Text style={styles.heading}>Exercises</Text>
-                        <View style={{marginTop: 4}}>
+                        <View style={{...listStyles.wrapper, marginTop: 4}}>
                             {workout.exercises
                                 .sort((e1, e2) => new Date(e1.dateTime).getTime() - new Date(e2.dateTime).getTime())
                                 .map(exercise => <Exercise
@@ -60,29 +59,10 @@ export default class WorkoutScreen extends Component<IProps> {
 }
 
 const styles = StyleSheet.create({
-    workouts: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        marginTop: 4,
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
     heading: {
         fontSize: 14,
         marginTop: 15,
         color: '#606F7B'
-    },
-    tile: {
-        marginRight: 5,
-        height: 50,
-        width: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#4299E1'
     },
     contentGroup: {
         marginTop: 15,
