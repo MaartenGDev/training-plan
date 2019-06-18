@@ -17,7 +17,6 @@ export default StyleSheet.create({
         fontSize: 18,
         backgroundColor: '#ffffff',
         borderWidth: 0.2,
-        borderColor: '#d6d7da',
-        color: 'red'
+        borderColor: '#d6d7da'
     }
 });

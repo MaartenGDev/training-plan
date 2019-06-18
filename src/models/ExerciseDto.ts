@@ -1,19 +1,19 @@
-import {Workout} from "./Workout";
-import {Category} from "./Category";
-import {Workshop} from "./Workshop";
+import {WorkoutDto} from "./WorkoutDto";
+import {CategoryDto} from "./CategoryDto";
+import {WorkshopDto} from "./WorkshopDto";
 
-export class Exercise {
+export class ExerciseDto {
     id: number;
     name: string;
     description: string;
-    category: Category;
+    category: CategoryDto;
     imagePath: string;
     sets: string;
     lastPerformed: Date = new Date();
-    workouts: Workout[] = [];
-    workshops: Workshop[] = [];
+    workouts: WorkoutDto[] = [];
+    workshops: WorkshopDto[] = [];
 
-    constructor(id: number,name: string, description: string, category: Category, imagePath: string, sets: string, lastPerformed: Date, workouts: Workout[], workshops: Workshop[]){
+    constructor(id: number, name: string, description: string, category: CategoryDto, imagePath: string, sets: string, lastPerformed: Date, workouts: WorkoutDto[], workshops: WorkshopDto[]){
         this.id = id;
         this.name = name;
         this.description = description;

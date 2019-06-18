@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-navigation';
-import {Workout as WorkoutModel} from '../../models/Workout'
+import {WorkoutDto as WorkoutModel} from '../../models/WorkoutDto'
 import {Exercise} from "../../components/Exercise";
 import {DateHelper} from "../../helpers/DateHelper";
 import listStyles from '../../styles/Lists'
@@ -47,7 +47,7 @@ export default class WorkoutScreen extends Component<IProps> {
                                 .map(exercise => <Exercise
                                     key={exercise.id + new Date(exercise.dateTime).getTime()}
                                     exercise={exercise}
-                                    options={{showCategory: true}}
+                                    options={{showCategory: true, showSets: true}}
                                     onPress={clickedExercise => {
                                         navigation.navigate('Exercise', {exercise: clickedExercise})
                                     }}/>)}

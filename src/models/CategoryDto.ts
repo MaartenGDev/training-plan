@@ -1,4 +1,4 @@
-export class Category {
+export class CategoryDto {
     id: number;
     name: string;
 

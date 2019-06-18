@@ -1,6 +1,6 @@
 import React from 'react'
 import {Component} from 'react'
-import {ScrollView, StyleSheet, Text, View} from 'react-native'
+import {ScrollView, StyleSheet, Text, TouchableHighlight, View} from 'react-native'
 import {SafeAreaView} from 'react-navigation'
 import {Workout} from "../../components/Workout";
 import {Query} from "react-apollo";
@@ -8,6 +8,7 @@ import {gql} from "apollo-boost";
 import {Workshop} from "../../components/Workshop";
 import listStyles from '../../styles/Lists'
 import textStyles from '../../styles/Text'
+import layoutStyles from '../../styles/Layout'
 
 interface IProps {
     navigation: any
@@ -19,7 +20,7 @@ export default class HomeScreen extends Component<IProps> {
 
         return (
             <SafeAreaView style={styles.container}>
-                <ScrollView style={styles.contentGroup}>
+                <ScrollView style={layoutStyles.contentGroup}>
                     <Text style={styles.greeting}>Welcome back, Maarten!</Text>
                     <Query
                         query={gql`
@@ -57,20 +58,29 @@ export default class HomeScreen extends Component<IProps> {
 
                             return (
                                 <View>
-
                                     <Text style={textStyles.heading}>Latest workouts</Text>
-                                    <View style={listStyles.wrapper}>
-                                        {data.workouts.slice(0, 5).map(workout => <Workout
-                                            key={workout.id}
-                                            workout={workout}
-                                            onPress={clickedWorkout =>
-                                                navigation.navigate('Workout', {workout: clickedWorkout})
-                                            }/>)}
-                                    </View>
+                                    {data.workouts.length > 0
+                                        ? <View style={listStyles.wrapper}>
+                                            {data.workouts.slice(0, 5).map(workout => <Workout
+                                                key={workout.id}
+                                                workout={workout}
+                                                onPress={clickedWorkout =>
+                                                    navigation.navigate('Workout', {workout: clickedWorkout})
+                                                }/>)}
+                                        </View>
+                                        : <View style={listStyles.wrapper}>
+                                            <TouchableHighlight onPress={e => navigation.navigate('Workouts')}>
+                                                <View style={listStyles.item}>
+                                                    <Text style={{fontWeight: 'bold'}}>No workouts recorded!</Text>
+                                                    <Text>Tap to create</Text>
+                                                </View>
+                                            </TouchableHighlight>
+                                        </View>
+                                    }
 
                                     <Text style={{...textStyles.heading, marginTop: 20}}>Upcoming workshops</Text>
                                     <View style={listStyles.wrapper}>
-                                        {data.workshops.map(workshop => <Workshop
+                                        {data.workshops.slice(0, 3).map(workshop => <Workshop
                                             key={workshop.id} workshop={workshop}
                                             onPress={clickedWorkshop =>
                                                 navigation.navigate('Workshop', {workshop: clickedWorkshop})
@@ -95,10 +105,5 @@ const styles = StyleSheet.create({
         fontSize: 35,
         fontWeight: 'bold',
         color: '#4a5568'
-    },
-    contentGroup: {
-        marginTop: 15,
-        marginLeft: 15,
-        marginRight: 15,
     }
 });

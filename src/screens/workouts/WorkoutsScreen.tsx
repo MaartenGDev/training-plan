@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-navigation';
 import {GroupedList} from "../../components/GroupedList";
 import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
-import {Workout as WorkoutModel} from "../../models/Workout";
+import {WorkoutDto as WorkoutModel} from "../../models/WorkoutDto";
 import {Workout} from "../../components/Workout";
 import {DateHelper} from "../../helpers/DateHelper";
 

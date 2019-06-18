@@ -6,29 +6,32 @@ import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
 import {Exercise} from "../../components/Exercise";
 import inputStyles from '../../styles/Input'
+import {JourneyDto} from "../../models/JourneyDto";
 
 interface IProps {
-    navigation: any
+    navigation: { navigate: any, state: { params: { journey: JourneyDto} } }
 }
 
 const GET_WORKSHOPS_QUERY = gql`
-                    {
-                     workshops {
-                        id
-                        name
-                         exercises {
-                          id
-                          name
-                          imagePath
-                          description
-                          category {
-                            id
-                            name
-                          }
-                        }
-                      }
-                     }
-                `;
+query WorkshopsForJourney($id: Int!) {
+  journey(id: $id) {
+    workshops {
+      id
+      name
+      exercises {
+        id
+        name
+        imagePath
+        description
+        category {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+`;
 
 export default class WorkshopsScreen extends Component<IProps> {
     state = {
@@ -38,6 +41,7 @@ export default class WorkshopsScreen extends Component<IProps> {
     render() {
         const {searchQuery} = this.state
         const {navigation} = this.props;
+        const {journey} = navigation.state.params;
 
         return (
             <SafeAreaView style={{backgroundColor: '#F2F3F7', flexGrow: 1}}>
@@ -52,12 +56,14 @@ export default class WorkshopsScreen extends Component<IProps> {
 
                 <Query
                     query={GET_WORKSHOPS_QUERY}
+                    variables={{id: journey.id}}
                 >
                     {({loading, error, data}) => {
                         if (loading) return <Text>Loading...</Text>;
                         if (error) return <Text>Error :(</Text>;
 
-                        const itemsByGroupName = data.workshops
+
+                        const itemsByGroupName = data.journey.workshops
                             .filter(e => searchQuery === '' || e.name.toLowerCase().includes(searchQuery.toLowerCase()))
                             .map(x => ({...x, items: x.exercises}));
 

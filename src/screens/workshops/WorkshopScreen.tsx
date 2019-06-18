@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {View, SectionList, StyleSheet, Text, Image, ScrollView} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-navigation';
-import {Workshop as WorkshopModel} from '../../models/Workshop'
+import {WorkshopDto as WorkshopModel} from '../../models/WorkshopDto'
 import {Exercise} from "../../components/Exercise";
 import textStyles from '../../styles/Text'
+import layoutStyles from '../../styles/Layout'
 
 interface IProps {
-    navigation: { push: any, state: { params: { workshop: WorkshopModel } } },
+    navigation: { navigate: any, state: { params: { workshop: WorkshopModel } } },
     title: string,
 }
 
@@ -18,7 +19,7 @@ export default class WorkshopScreen extends Component<IProps> {
         return (
             <SafeAreaView style={{backgroundColor: '#F2F3F7', flexGrow: 1}}>
                 <ScrollView>
-                    <View style={styles.contentGroup}>
+                    <View style={layoutStyles.contentGroup}>
                         <Text style={{fontSize: 20, fontWeight: 'bold', color: '#606F7B'}}>{workshop.name}</Text>
 
                         <Text style={textStyles.heading}>Details</Text>
@@ -41,7 +42,7 @@ export default class WorkshopScreen extends Component<IProps> {
                           <Text style={textStyles.heading}>Exercises</Text>
                           <View style={{marginTop: 4}}>
                               {workshop.exercises.map(exercise => <Exercise key={exercise.id} exercise={exercise}
-                                                                            onPress={clickedExercise => navigation.push('Exercise', {exercise: clickedExercise})}/>)}
+                                                                            onPress={clickedExercise => navigation.navigate('Exercise', {exercise: clickedExercise})}/>)}
                           </View>
                         </View>}
                     </View>
@@ -50,11 +51,3 @@ export default class WorkshopScreen extends Component<IProps> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    contentGroup: {
-        marginTop: 15,
-        marginLeft: 15,
-        marginRight: 15,
-    }
-});

@@ -1,6 +1,6 @@
 import React, {Component, FunctionComponent} from 'react';
 import {View, StyleSheet, Text, Image, TouchableHighlight} from 'react-native';
-import {Exercise as ExerciseModel} from "../models/Exercise";
+import {ExerciseDto as ExerciseModel} from "../models/ExerciseDto";
 
 interface IProps {
     exercise: ExerciseModel;
@@ -18,9 +18,9 @@ export const Exercise: FunctionComponent<IProps> = ({exercise, onPress, options 
                 />
                 <View style={styles.details}>
                     <Text style={{fontWeight: 'bold'}}>{exercise.name}</Text>
+                    {options.showCategory && <Text style={{color: '#9B9B9B'}}>Category: {exercise.category.name}</Text>}
                     {options.showSets && <Text style={{color: '#9B9B9B'}}>Sets: {exercise.sets}</Text>}
                     {options.showLastPerformed && <Text style={{color: '#9B9B9B'}}>Last Performed: {new Date().toDateString()}</Text>}
-                    {options.showCategory && <Text style={{color: '#9B9B9B'}}>Category: {exercise.category.name}</Text>}
                 </View>
             </View>
         </TouchableHighlight>

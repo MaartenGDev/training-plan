@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet, Text, Image, TouchableHighlight} from 'react-native';
-import {Workshop as WorkshopModel} from "../models/Workshop";
+import {WorkshopDto as WorkshopModel} from "../models/WorkshopDto";
 import listStyles from '../styles/Lists'
 
 interface IProps {
@@ -19,7 +19,3 @@ export const Workshop: FunctionComponent<IProps> = ({workshop, onPress}) => {
         </TouchableHighlight>
     );
 };
-
-const styles = StyleSheet.create({
-
-});

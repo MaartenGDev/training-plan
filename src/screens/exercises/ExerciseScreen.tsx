@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, Image, ScrollView, TouchableHighlight} from 'react-native';
 import {SafeAreaView} from 'react-navigation';
-import {Exercise} from "../../models/Exercise";
+import {ExerciseDto} from "../../models/ExerciseDto";
 import {Dimensions} from 'react-native';
 import {Workout} from "../../components/Workout";
-import {Workshop} from "../../models/Workshop";
+import {WorkshopDto} from "../../models/WorkshopDto";
 import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
 import textStyles from '../../styles/Text'
 
 interface IProps {
-    navigation: { navigate: any, state: { params: { exercise: Exercise } } },
+    navigation: { navigate: any, state: { params: { exercise: ExerciseDto } } },
     title: string,
 }
 
@@ -56,7 +56,7 @@ const GET_EXERCISE_QUERY = gql`
 `;
 
 export default class ExerciseScreen extends Component<IProps> {
-    getTitleForWorkshop(workshop: Workshop): string {
+    getTitleForWorkshop(workshop: WorkshopDto): string {
         const words = workshop.name.split(' ');
 
         return words.map(word => word[0].toUpperCase()).join('');

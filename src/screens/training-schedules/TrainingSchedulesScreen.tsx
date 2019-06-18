@@ -47,6 +47,7 @@ export default class TrainingSchedulesScreen extends Component<IProps> {
                                             itemRenderer={item => <Exercise
                                                 key={item.id}
                                                 exercise={item}
+                                                options={{showCategory: true, showSets: true}}
                                                 onPress={exercise => {
                                                     navigation.navigate('Exercise', {exercise})
                                                 }}/>}/>

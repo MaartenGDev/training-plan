@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, TextInput, View} from 'react-native'
 import {SafeAreaView} from 'react-navigation';
-import {Exercise as ExerciseModel} from "../../models/Exercise";
+import {ExerciseDto as ExerciseModel} from "../../models/ExerciseDto";
 import {GroupedList} from "../../components/GroupedList";
 import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
