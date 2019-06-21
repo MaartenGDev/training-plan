@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TextInput, View} from 'react-native'
+import {Text, TextInput, TouchableHighlight, View} from 'react-native'
 import {SafeAreaView} from 'react-navigation';
 import {ExerciseDto as ExerciseModel} from "../../models/ExerciseDto";
 import {GroupedList} from "../../components/GroupedList";

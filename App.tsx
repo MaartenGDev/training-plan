@@ -15,6 +15,7 @@ import WorkoutsScreen from "./src/screens/workouts/WorkoutsScreen";
 import WorkshopsScreen from "./src/screens/workshops/WorkshopsScreen";
 import WorkshopScreen from "./src/screens/workshops/WorkshopScreen";
 import JourneysScreen from "./src/screens/journeys/JourneysScreen";
+import EditWorkoutScreen from "./src/screens/workouts/EditWorkoutScreen";
 
 const link = createHttpLink({
     uri: "https://training-plan-api.maartendev.me/graphql"
@@ -60,21 +61,19 @@ const DrawerNavigator = createDrawerNavigator({
     Home: {
         screen: HomeScreen
     },
-    Exercises: {
-        screen: ExercisesScreen
+    Workouts: {
+        screen: WorkoutsScreen,
     },
     TrainingSchedules: {
         screen: TrainingSchedulesScreen,
     },
+    Exercises: {
+        screen: ExercisesScreen
+    },
     Exercise: {
         screen: ExerciseScreen
     },
-    Workouts: {
-        screen: WorkoutsScreen,
-        navigationOptions : {
 
-        }
-    },
     Workout: {
         screen: WorkoutScreen
     },
@@ -86,6 +85,9 @@ const DrawerNavigator = createDrawerNavigator({
     },
     Workshop: {
         screen: WorkshopScreen
+    },
+    EditWorkout: {
+        screen: EditWorkoutScreen
     },
 }, {
     contentComponent: props => <Sidebar {...props} pagesByRouteKey={pagesByRouteKey}/>

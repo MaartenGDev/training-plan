@@ -15,7 +15,6 @@ export const GroupedList: FunctionComponent<IProps> = ({itemsByGroupName, itemRe
     return (
         <FlatList
             showsVerticalScrollIndicator={false}
-            style={{marginLeft: 15, marginRight: 15}}
             data={itemsByGroupName}
             contentContainerStyle={{ flexGrow: 1 }}
             renderItem={({item: group}) => <View style={listStyles.wrapper}>
