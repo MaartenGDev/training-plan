@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, ScrollView, TextInput, FlatList} from 'react-native';
+import {View, StyleSheet, Text, ScrollView, TextInput, FlatList, Picker} from 'react-native';
 import {SafeAreaView} from 'react-navigation';
 import listStyles from '../../styles/Lists'
 import textStyles from '../../styles/Text'
@@ -10,6 +10,7 @@ import {gql} from "apollo-boost";
 import {Query} from "react-apollo";
 import {ExerciseDto} from "../../models/ExerciseDto";
 import {WorkoutExerciseDto} from "../../models/WorkoutExerciseDto";
+import {TrainingScheduleDto} from "../../models/TrainingScheduleDto";
 
 
 interface IProps {
@@ -41,6 +42,10 @@ query Workout($id: Int!) {
         name
     }
   }
+  trainingSchedules {
+    id
+    name
+  }
 }
 `;
 
@@ -67,6 +72,8 @@ export default class EditWorkoutScreen extends Component<IProps, IState> {
         const {navigation} = this.props;
         let {workout} = navigation.state.params;
 
+        let trainingSchedules: TrainingScheduleDto[] = [];
+
         return (
             <SafeAreaView style={{backgroundColor: '#ffffff', flexGrow: 1}}>
                 <ScrollView keyboardShouldPersistTaps={'always'}>
@@ -80,6 +87,7 @@ export default class EditWorkoutScreen extends Component<IProps, IState> {
 
                             if (!loading) {
                                 workout = data.workout || new WorkoutDto();
+                                trainingSchedules = data.trainingSchedules;
                             }
 
                             const exercises: ExerciseDto[] = (data.exercises || [])
@@ -88,6 +96,18 @@ export default class EditWorkoutScreen extends Component<IProps, IState> {
 
                             return (<View style={styles.contentGroup}>
                                 <Text style={{fontSize: 20, fontWeight: 'bold', color: '#606F7B'}}>Create workout</Text>
+                                <Text style={{...textStyles.heading, marginTop: 10}}>Based on workout</Text>
+                                <View>
+                                    <Picker
+                                        selectedValue={'java'}
+                                        onValueChange={(itemValue, itemIndex) => {
+                                        }
+                                        }>
+                                        <Picker.Item key={0} label="None" value={0}/>
+                                        {trainingSchedules.map(schedule => <Picker.Item key={schedule.id} label={schedule.name} value={schedule.id}/>)}
+                                    </Picker>
+                                </View>
+
                                 <Text style={{...textStyles.heading, marginTop: 10}}>Add exercises</Text>
                                 <TextInput
                                     style={{...inputStyles.searchInput, marginTop: 5}}
